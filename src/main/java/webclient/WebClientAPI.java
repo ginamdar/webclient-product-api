@@ -3,33 +3,19 @@ package webclient;
 import model.Product;
 import model.ProductEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-
+@Component(value="webClientAPI")
 public class WebClientAPI {
 
-//    @Bean
-//    WebClient webClient() {
-//        return WebClient.builder()
-//                .baseUrl("http://localhost:8081/products")
-//                .defaultHeader("Content-Type", "application/json")
-//                .build();
-//    };
-
-    @Autowired
     private WebClient webClient;
 
-    WebClientAPI() {
-        this.webClient = WebClient.builder()
-                .baseUrl("http://localhost:8081/products")
-                .defaultHeader("Content-Type", "application/json")
-                .build();
+    WebClientAPI(WebClient webClient) {
+        this.webClient = webClient;
     }
 
     public Mono<ResponseEntity<Product>> postNewProduct() {
